@@ -1,7 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            font-size: 2.4rem;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.6rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        img.recipe-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-height: 200px;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.6rem;
+            margin-top: 20px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>Search Results</h1>
@@ -9,9 +66,8 @@
         {% for recipe in recipes %}
             <li>
                 <h2>{{ recipe.name }}</h2>
-                <p>{{ recipe.ingredients }}</p>
                 <p>{{ recipe.recipe }}</p>
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+                <img src="{{ recipe.image }}" alt="{{ recipe.name }}" class="recipe-image">
             </li>
         {% endfor %}
     </ul>

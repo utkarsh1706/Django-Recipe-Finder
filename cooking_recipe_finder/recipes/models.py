@@ -1,10 +1,9 @@
-from mongoengine import Document, StringField, FileField
+from mongoengine import Document, StringField, URLField
 
 class Recipe(Document):
     name = StringField(max_length=255, required=True)
-    ingredients = StringField(required=True)
     recipe = StringField(required=True)
-    image = FileField()
+    image = StringField(required=True)
 
     def __str__(self):
         return self.name

@@ -83,20 +83,27 @@ WSGI_APPLICATION = 'cooking_recipe_finder.wsgi.application'
 
 from mongoengine import connect
 
+DB_NAME = 'recipe_db'
+
+# MongoDB Atlas connection URI
+MONGO_URI = "mongodb+srv://utkarsh:sonamutkarsh@cluster0.fjbuelq.mongodb.net/{0}?retryWrites=true&w=majority".format(DB_NAME)
+
+# Configure mongoengine to connect to MongoDB Atlas
 connect(
-    db='recipe_db',
-    host='localhost',
-    port=27017
+    db=DB_NAME,
+    host=MONGO_URI,
+    alias='default',  # Optional: Set an alias for the connection
 )
 
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
     }
 }
 

@@ -18,3 +18,7 @@ def search_results(request):
     else:
         recipes = []
     return render(request, 'recipes/search_results.html', {'recipes': recipes})
+
+def all_recipes(request):
+    recipes = Recipe.objects.all()
+    return render(request, 'recipes/all_recipes.html', {'recipes': recipes})

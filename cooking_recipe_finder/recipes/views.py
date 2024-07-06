@@ -10,6 +10,9 @@ import os
 def home(request):
     return render(request, 'recipes/home.html')
 
+def search_form(request):
+    return render(request, 'recipes/search_form.html')
+
 def search_results(request):
     query = request.GET.get('q')
     if query:

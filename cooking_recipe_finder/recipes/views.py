@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.cache import cache
+from django.conf import settings
 from .models import Recipe
 from .forms import RecipeForm
 from .utils import handle_uploaded_image
 import json
+import os
 
 def home(request):
     return render(request, 'recipes/home.html')
@@ -46,3 +48,19 @@ def add_recipe(request):
         form = RecipeForm()
     
     return render(request, 'recipes/add_recipe.html', {'form': form})
+
+def delete_recipe(request, recipe_id):
+    try:
+        recipe = Recipe.objects.get(id=recipe_id)
+    except Recipe.DoesNotExist:
+        return redirect('all_recipes')
+    
+    if request.method == 'POST':
+        image_path = os.path.join(settings.BASE_DIR, "recipes", recipe.image.lstrip('/'))
+        if os.path.exists(image_path):
+            os.remove(image_path)
+        recipe.delete()
+        cache.delete(f"recipe:{recipe_id}")
+        return redirect('all_recipes')
+    
+    return render(request, 'recipes/confirm_delete.html', {'recipe': recipe})
